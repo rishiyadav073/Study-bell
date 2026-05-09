@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#2d6cdf">
+    <title>StudyBell</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar" aria-label="WorkBell overview">
+        <div class="hero-copy">
+          <div class="brand-lockup" aria-label="StudyBell">
+            <img src="icons/icon.svg" alt="" width="48" height="48">
+            <p class="eyebrow">StudyBell</p>
+          </div>
+          <h1>College work, always in view.</h1>
+          <p class="subtitle">Track assignments, exams, lab records, projects, and study sessions with time reminders.</p>
+        </div>
+        <button class="icon-button" id="installButton" type="button" hidden title="Install app" aria-label="Install app">
+          <span aria-hidden="true">+</span>
+        </button>
+      </section>
+
+      <section class="home-strip" aria-label="Home screen pending works">
+        <div class="home-strip-head">
+          <div>
+            <p class="eyebrow">Home screen</p>
+            <h2>Pending college work</h2>
+          </div>
+          <strong id="homePendingCount">0</strong>
+        </div>
+        <div id="homePendingList" class="home-pending-list" aria-live="polite"></div>
+      </section>
+
+      <section class="composer" aria-label="Add work">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Quick add</p>
+            <h2>New reminder</h2>
+          </div>
+          <span class="today-pill" id="todayPill"></span>
+        </div>
+        <form id="taskForm">
+          <label>
+            <span>What work should I remind you about?</span>
+            <input id="taskTitle" name="title" autocomplete="off" list="studentSuggestions" maxlength="90" placeholder="Submit assignment, revise module, finish lab record..." required>
+            <datalist id="studentSuggestions">
+              <option value="Submit assignment">
+              <option value="Revise module notes">
+              <option value="Complete lab record">
+              <option value="Prepare for internal exam">
+              <option value="Finish project work">
+              <option value="Attend online class">
+              <option value="Pay semester exam fee">
+              <option value="Library book return">
+              <option value="Group study meeting">
+              <option value="Upload presentation">
+            </datalist>
+          </label>
+          <div class="time-grid">
+            <label>
+              <span>Date</span>
+              <input id="taskDate" name="date" type="date" required>
+            </label>
+            <label>
+              <span>Time</span>
+              <input id="taskTime" name="time" type="time" required>
+            </label>
+          </div>
+          <label>
+            <span>Note</span>
+            <textarea id="taskNote" name="note" rows="3" maxlength="220" placeholder="Subject, room number, teacher name, chapter, link..."></textarea>
+          </label>
+          <div class="form-actions">
+            <button class="primary" type="submit">Add reminder</button>
+            <button class="secondary" id="notifyButton" type="button">Enable reminders</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="dashboard" aria-label="Work lists">
+        <div class="panel pending-panel">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">My work</p>
+              <h2 id="pendingCount">0 works</h2>
+            </div>
+            <div class="filter-tabs" aria-label="Filter works">
+              <button class="filter-tab active" type="button" data-filter="pending">Pending</button>
+              <button class="filter-tab" type="button" data-filter="today">Today</button>
+              <button class="filter-tab" type="button" data-filter="all">All</button>
+              <button class="filter-tab" type="button" data-filter="done">Done</button>
+            </div>
+          </div>
+          <div id="taskList" class="task-list" aria-live="polite"></div>
+        </div>
+
+        <aside class="panel side-panel" aria-label="Quick status">
+          <p class="eyebrow">Next up</p>
+          <div id="nextTask" class="next-task">No pending work yet.</div>
+          <div class="stats">
+            <div>
+              <strong id="todayStat">0</strong>
+              <span>Today</span>
+            </div>
+            <div>
+              <strong id="overdueStat">0</strong>
+              <span>Overdue</span>
+            </div>
+            <div>
+              <strong id="doneStat">0</strong>
+              <span>Done</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <template id="taskTemplate">
+      <article class="task">
+        <button class="check" type="button" aria-label="Mark done"></button>
+        <div class="task-main">
+          <span class="task-status"></span>
+          <h3></h3>
+          <p class="task-note"></p>
+          <time></time>
+        </div>
+        <button class="delete" type="button" aria-label="Delete work">x</button>
+      </article>
+    </template>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
